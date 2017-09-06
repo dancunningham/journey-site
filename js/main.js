@@ -49,6 +49,9 @@ function getLocationStringShort(arr) {
 // Iterate through results, creating a result object for each one, ready for outputting
 var results = new Array();
 
+var earliestDate;
+var latestDate;
+
 for (var i = 0; i < json.data.length; i++) {
 	var resultArray = json.data[i];
 	var result = new Object();
@@ -74,6 +77,9 @@ for (var i = 0; i < json.data.length; i++) {
 	result.trees = Math.round(resultArray[columns.co2] * 4);
 
 	results.push(result);
+
+	if (i == 0) latestDate = result.startdatetime;
+	if (i == json.data.length-1) earliestDate = result.startdatetime;
 }
 
 for (var i = 0; i < results.length; i++) {
@@ -86,9 +92,9 @@ var numFlights;
 if (results.length == 0) {
 	numFlights = "It looks like you didn't take any flights";
 } else if (results.length == 1) {
-	numFlights = "It looks like you took <strong>1 flight</strong>.";
+	numFlights = "It looks like you took <strong>1 flight</strong> between " + earliestDate.toDateString() + " and " + latestDate.toDateString() + ".";
 } else {
-	numFlights = "It looks like you took <strong>" + results.length + " flights</strong>.";
+	numFlights = "It looks like you took <strong>" + results.length + " flights</strong> between " + earliestDate.toDateString() + " and " + latestDate.toDateString() + ".";
 }
 $('#numFlights').html(numFlights);
 
