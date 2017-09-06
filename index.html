@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Journey</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+
+        <!--<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.js"></script>-->
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Journey</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div id="map" style="width:100%; height:240px; z-index:-1; position:absolute;"></div>
+    <div class="jumbotron" style="background:none; height:240px;">
+      <div class="container">
+        <h1 class="display-4">Your flights</h1>
+      </div>
+    </div>
+
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuY3VubmluZ2hhbSIsImEiOiJjajZveWI1ZWQwbXZsMnFwc3NhczFiNndrIn0.vC5_HT6rXvXGhXeZOf7EDQ';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v9'
+      });
+    </script>
+
+
+    <div class="container">
+      <p class="lead" id="numFlights">It looks like you took <strong>33 flights</strong> between 1 Jan 2012 and 2 Aug 2017</p>
+
+      <div class="table-responsive">
+        <table class="table" id="flights">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Flight</th>
+              <th>Emissions (tonnes CO<sub>2</sub>e)</th>
+              <th>Trees to plant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-secondary">
+              <th scope="row">2012</th>
+              <td>No flights</td>
+              <td>0</td>
+              <td></td>
+            </tr>
+
+            <tr class="table-secondary">
+              <th scope="row">2013</th>
+              <td>1 flight</td>
+              <td>1.55</td>
+              <td>6 trees</td>
+            </tr>
+            <tr>
+              <td>21 Dec</td>
+              <td>
+                London to Medellin
+                <br/><small>8,500 km</small>
+              </td>
+              <td>1.55</td>
+              <td>6 trees</td>
+            </tr>
+
+            <tr class="table-secondary">
+              <th scope="row">2014</th>
+              <td>5 flights</td>
+              <td>8.34</td>
+              <td>33 trees</td>
+            </tr>
+            <tr>
+              <td>2 Jan</td>
+              <td>
+                Medellin to London
+                <br/><small>8,600 km</small>
+              </td>
+              <td>1.56</td>
+              <td>6 trees</td>
+            </tr>
+            <tr>
+              <td>4 May</td>
+              <td>
+                London to Medellin (via JFK)
+                <br/><small>9,400 km</small>
+              </td>
+              <td>1.75</td>
+              <td>7 trees</td>
+            </tr>
+            <tr>
+              <td>10 May</td>
+              <td>
+                Medellin to London (via MIA)
+                <br/><small>9,400 km</small>
+              </td>
+              <td>1.75</td>
+              <td>7 trees</td>
+            </tr>
+            <tr>
+              <td>1 Oct</td>
+              <td>
+                London to Los Angeles
+                <br/><small>8,800 km</small>
+              </td>
+              <td>1.65</td>
+              <td>6 trees</td>
+            </tr>
+            <tr>
+              <td>19 Oct</td>
+              <td>
+                San Francisco to London
+                <br/><small>8,600 km</small>
+              </td>
+              <td>1.63</td>
+              <td>6 trees</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <footer>
+        &nbsp;
+      </footer>
+    </div> <!-- /container -->
+
+    <!-- JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="js/vendor/popper.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <script src="js/plugins.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <!--
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+      -->
+    </body>
+</html>
