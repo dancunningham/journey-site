@@ -22,6 +22,8 @@ columns.startlat = json.columns.indexOf("startlat");
 columns.startlon = json.columns.indexOf("startlon");
 columns.startcity = json.columns.indexOf("startcity");
 columns.endcity = json.columns.indexOf("endcity");
+columns.startairport = json.columns.indexOf("startairport");
+columns.endairport = json.columns.indexOf("endairport");
 columns.co2 = json.columns.indexOf("co2");
 
 // Takes an array [city, country] where city might be blank
@@ -61,8 +63,8 @@ for (var i = 0; i < json.data.length; i++) {
 
 	result.startcity = getLocationString(resultArray[columns.startcity]);
 	result.endcity = getLocationString(resultArray[columns.endcity]);
-	result.startloc = getLocationStringShort(resultArray[columns.startcity]);
-	result.endloc = getLocationStringShort(resultArray[columns.endcity]);
+	result.startloc = resultArray[columns.startairport] || getLocationStringShort(resultArray[columns.startcity]);
+	result.endloc = resultArray[columns.endairport] || getLocationStringShort(resultArray[columns.endcity]);
 
 	result.distance = Math.round(resultArray[columns.distance]);
 	result.speed = resultArray[columns.speed];
@@ -101,14 +103,18 @@ for (var i = 0; i < results.length; i++) {
 	var startLink = "https://www.google.com/maps/place/" + result.startlat + "+" + result.startlon + "/@" + result.startlat + "," + result.startlon + ",12z/";
 	var endLink = "https://www.google.com/maps/place/" + result.endlat + "+" + result.endlon + "/@" + result.endlat + "," + result.endlon + ",12z/";
 
+	var n = results.length - i;
+
 	table.append("<tr>" +
-            	"<td>" + result.startdatetime.toDateString() + "</td>" +
-            	"<td>" +
-            	result.startloc + " to " + result.endloc + 
+            	"<td>" + n + "</td>" +
+            	"<td><nobr>" + result.startdatetime.toDateString() + "</nobr></td>" +
+            	"<td><b>" +
+            	result.startloc + "</b> to <b>" + result.endloc + "</b>" +
             	"<br/><small>" + result.distance + " km from <a href=\"" + startLink + "\" target=\"_blank\">" + result.startcity + "</a> to <a href=\"" + endLink + "\" target=\"_blank\">" + result.endcity + "</a></small>" +
             	"</td>" +
+            	"<td>" + result.distance + "</td>" +
             	"<td>" + result.co2 + "</td>" +
-            	"<td>" + result.trees + " trees</td>" +
+            	"<td>" + result.trees + "</td>" +
             	"</tr>");
 }
 
