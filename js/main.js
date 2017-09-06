@@ -98,11 +98,14 @@ table.empty();
 for (var i = 0; i < results.length; i++) {
 	var result = results[i];
 
+	var startLink = "https://www.google.com/maps/place/" + result.startlat + "+" + result.startlon + "/@" + result.startlat + "," + result.startlon + ",12z/";
+	var endLink = "https://www.google.com/maps/place/" + result.endlat + "+" + result.endlon + "/@" + result.endlat + "," + result.endlon + ",12z/";
+
 	table.append("<tr>" +
             	"<td>" + result.startdatetime.toDateString() + "</td>" +
             	"<td>" +
             	result.startloc + " to " + result.endloc + 
-            	"<br/><small>" + result.distance + " km from " + result.startcity + " to " + result.endcity + "</small>" +
+            	"<br/><small>" + result.distance + " km from <a href=\"" + startLink + "\" target=\"_blank\">" + result.startcity + "</a> to <a href=\"" + endLink + "\" target=\"_blank\">" + result.endcity + "</a></small>" +
             	"</td>" +
             	"<td>" + result.co2 + "</td>" +
             	"<td>" + result.trees + " trees</td>" +
