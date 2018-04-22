@@ -51,6 +51,7 @@ var results = new Array();
 
 var earliestDate;
 var latestDate;
+var totalCO2 = 0;
 
 for (var i = 0; i < json.data.length; i++) {
 	var resultArray = json.data[i];
@@ -75,13 +76,18 @@ for (var i = 0; i < json.data.length; i++) {
 	// convert from kg to tonnes and round to 2 decimal places
 	result.co2 = Math.round((resultArray[columns.co2]/1000)*100)/100;
 
-	result.trees = Math.round(resultArray[columns.co2] * 4);
+	result.trees = Math.round((resultArray[columns.co2]/1000) * 4);
 
 	results.push(result);
+
+	totalCO2 += resultArray[columns.co2]/1000;
 
 	if (i == 0) latestDate = result.startdatetime;
 	if (i == json.data.length-1) earliestDate = result.startdatetime;
 }
+
+var totalCO2 = Math.round(totalCO2*10)/10;
+var totalTrees = Math.round(totalCO2 * 4);
 
 for (var i = 0; i < results.length; i++) {
 	var result = results[i];
@@ -89,15 +95,22 @@ for (var i = 0; i < results.length; i++) {
 }
 
 // Header
-var numFlights;
+var summary1;
 if (results.length == 0) {
-	numFlights = "It looks like you didn't take any flights";
+	summary1 = "It looks like you didn't take any flights";
 } else if (results.length == 1) {
-	numFlights = "It looks like you took <strong>1 flight</strong> between " + earliestDate.toDateString() + " and " + latestDate.toDateString() + ".";
+	summary1 = "It looks like you took <strong>1 flight</strong> between " + earliestDate.toDateString() + " and " + latestDate.toDateString() + ".";
 } else {
-	numFlights = "It looks like you took <strong>" + results.length + " flights</strong> between " + earliestDate.toDateString() + " and " + latestDate.toDateString() + ".";
+	summary1 = "It looks like you took <strong>" + results.length + " flights</strong> between " + earliestDate.toDateString() + " and " + latestDate.toDateString() + ".";
 }
-$('#numFlights').html(numFlights);
+$('#summary1').html(summary1);
+
+var summary2 = "";
+if (results.length > 0) {
+	summary2 = "These flights emitted a total of <strong>" + totalCO2 + " tonnes</strong> of CO<sub>2</sub>e, which you should offset by planting <strong>" + totalTrees + " trees</strong>.";
+}
+$('#summary2').html(summary2);
+
 
 // Clear our table
 table = $('#flights tbody')
