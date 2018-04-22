@@ -24,7 +24,7 @@ columns.startcity = json.columns.indexOf("startcity");
 columns.endcity = json.columns.indexOf("endcity");
 columns.startairport = json.columns.indexOf("startairport");
 columns.endairport = json.columns.indexOf("endairport");
-columns.co2 = json.columns.indexOf("co2") / 1000; // convert from kg to tonnes
+columns.co2 = json.columns.indexOf("co2");
 
 // Takes an array [city, country] where city might be blank
 // If city is present, returns "City, Country" 
@@ -72,7 +72,8 @@ for (var i = 0; i < json.data.length; i++) {
 	result.distance = Math.round(resultArray[columns.distance]);
 	result.speed = resultArray[columns.speed];
 
-	result.co2 = Math.round(resultArray[columns.co2]*100)/100;
+	// convert from kg to tonnes and round to 2 decimal places
+	result.co2 = Math.round((resultArray[columns.co2]/1000)*100)/100;
 
 	result.trees = Math.round(resultArray[columns.co2] * 4);
 
