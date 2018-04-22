@@ -24,7 +24,7 @@ columns.startcity = json.columns.indexOf("startcity");
 columns.endcity = json.columns.indexOf("endcity");
 columns.startairport = json.columns.indexOf("startairport");
 columns.endairport = json.columns.indexOf("endairport");
-columns.co2 = json.columns.indexOf("co2");
+columns.co2 = json.columns.indexOf("co2") / 1000; // convert from kg to tonnes
 
 // Takes an array [city, country] where city might be blank
 // If city is present, returns "City, Country" 
